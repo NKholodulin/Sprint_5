@@ -55,7 +55,7 @@ public class QuestionTest {
 
         // сделали проверку, что полученные значения совпадают с ответом
         Assertions.assertEquals(expected, accordion, "Полученное значение не совпадает с ответом");
-        Assertions.assertEquals(expectedQuestion, actualQuestion, "Полученное значение не совпадает с ответом");
+        Assertions.assertEquals(expectedQuestion, actualQuestion, "Полученное значение не совпадает с вопросом");
 
     }
 

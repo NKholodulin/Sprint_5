@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.stream.Stream;
 
-public class QuestionTest {
+public class QuestionChromeTest {
     private WebDriver driver;
     MainPage mainPage;
 

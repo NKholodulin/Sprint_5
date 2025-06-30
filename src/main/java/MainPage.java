@@ -12,12 +12,12 @@ public class MainPage {
     }
 
 
-    public MainPage(WebDriver driver){
+    public MainPage(WebDriver driver) {
         this.driver = driver;
     }
 
     //метод для нажатия на кнопку принятия куки
-    public void cookieConfirm(By cookieConfirmLocator){
+    public void cookieConfirm(By cookieConfirmLocator) {
         driver.findElement(cookieConfirmLocator).click();
     }
 

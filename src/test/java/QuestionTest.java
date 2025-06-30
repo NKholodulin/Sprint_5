@@ -18,20 +18,18 @@ import java.util.stream.Stream;
 public class QuestionTest {
     private WebDriver driver;
     MainPage mainPage;
-    String browserName;
 
     @ParameterizedTest
     @MethodSource("locatorProvider")
     void checkQuestion(String browser, By questionLocator, By accordionLocator, String expected, String expectedQuestion) throws InterruptedException {
-        this.browserName = browser;
 
         // создали драйвер для браузера Chrome или Firefox
-        if ("chrome".equalsIgnoreCase(browserName)) {
+        if ("chrome".equalsIgnoreCase(browser)) {
             driver = new ChromeDriver();
-        } else if ("firefox".equalsIgnoreCase(browserName)) {
+        } else if ("firefox".equalsIgnoreCase(browser)) {
             driver = new FirefoxDriver();
         } else {
-            throw new IllegalArgumentException("Неизвестный браузер: " + browserName);
+            throw new IllegalArgumentException("Неизвестный браузер: " + browser);
         }
         // перешли на страницу тестового приложения
         driver.get("https://qa-scooter.praktikum-services.ru/");

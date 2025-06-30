@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,7 +20,7 @@ public class QuestionTest {
     MainPage mainPage;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         // создали драйвер для браузера Chrome
         driver = new ChromeDriver();
         // перешли на страницу тестового приложения
@@ -32,8 +31,7 @@ public class QuestionTest {
 
     @ParameterizedTest
     @MethodSource("locatorProvider")
-//    @Test
-    void checkQuestion(By questionLocator,By accordionLocator, String expected, String expectedQuestion) throws InterruptedException {
+    void checkQuestion(By questionLocator, By accordionLocator, String expected, String expectedQuestion) throws InterruptedException {
 
         mainPage.cookieConfirm(mainPage.getCookieConfirmLocator());
         String actualQuestion = driver.findElement(questionLocator).getText();
@@ -51,7 +49,6 @@ public class QuestionTest {
 
         // получили текст элемента вопроса
         String accordion = driver.findElement(accordionLocator).getText();
-
 
         // сделали проверку, что полученные значения совпадают с ответом
         Assertions.assertEquals(expected, accordion, "Полученное значение не совпадает с ответом");

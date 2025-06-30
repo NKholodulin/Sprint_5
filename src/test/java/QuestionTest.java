@@ -35,7 +35,7 @@ public class QuestionTest {
     @MethodSource("locatorProvider")
     void checkQuestion(By questionLocator, By accordionLocator, String expected, String expectedQuestion) throws InterruptedException {
 
-        mainPage.cookieConfirm(mainPage.getCookieConfirmLocator());
+        mainPage.cookieConfirm();
 
         //Ожидание пока элемент станет доступен
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));

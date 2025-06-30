@@ -9,20 +9,22 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.stream.Stream;
 
-public class QuestionChromeTest {
+public class QuestionTest {
     private WebDriver driver;
     MainPage mainPage;
 
     @BeforeEach
     void setUp() {
-        // создали драйвер для браузера Chrome
+        // создали драйвер для браузера Chrome или Firefox
         driver = new ChromeDriver();
+        //driver = new FirefoxDriver();
         // перешли на страницу тестового приложения
         driver.get("https://qa-scooter.praktikum-services.ru/");
         // создали объект класса страницы с вопросами
@@ -34,18 +36,21 @@ public class QuestionChromeTest {
     void checkQuestion(By questionLocator, By accordionLocator, String expected, String expectedQuestion) throws InterruptedException {
 
         mainPage.cookieConfirm(mainPage.getCookieConfirmLocator());
-        String actualQuestion = driver.findElement(questionLocator).getText();
-        // раскрыли вопрос
-        driver.findElement(questionLocator).click();
 
         //Ожидание пока элемент станет доступен
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.elementToBeClickable(questionLocator));
 
         //Прокрутка
-        WebElement element = driver.findElement(accordionLocator);
+        WebElement element = driver.findElement(questionLocator);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         Thread.sleep(500);
+        String actualQuestion = driver.findElement(questionLocator).getText();
+        // раскрыли вопрос
+        driver.findElement(questionLocator).click();
+
+        //Ожидание пока элемент станет доступен
+        wait.until(ExpectedConditions.elementToBeClickable(questionLocator));
 
         // получили текст элемента вопроса
         String accordion = driver.findElement(accordionLocator).getText();

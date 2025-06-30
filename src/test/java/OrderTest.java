@@ -21,7 +21,7 @@ public class OrderTest {
 
     @ParameterizedTest
     @MethodSource("locatorProvider")
-    void orderHeader(String browser, String name) {
+    void orderHeader(String browser, String orderButton, String name) {
 
         // создали драйвер для браузера Chrome или Firefox
         if ("chrome".equalsIgnoreCase(browser)) {
@@ -41,7 +41,18 @@ public class OrderTest {
         mainPage.cookieConfirm();
 
         //нажали Заказать в хедере страницы
-        mainPage.clickOrderButtonHeader();
+        //mainPage.clickOrderButtonHeader();
+        mainPage.clickOrderButtonMiddle();
+        // создали драйвер для браузера Chrome или Firefox
+        if ("middle".equalsIgnoreCase(orderButton)) {
+            mainPage.clickOrderButtonHeader();
+        } else if ("header".equalsIgnoreCase(orderButton)) {
+            mainPage.clickOrderButtonMiddle();
+        } else {
+            throw new IllegalArgumentException("Неизвестная кнопка: " + orderButton);
+        }
+
+        //Дождались открытия формы
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.textToBe(orderPage.getOrderHeader(), "Для кого самокат"));
         //заполнили имя
@@ -59,10 +70,12 @@ public class OrderTest {
                 // Реализуй тестовые данные
                 Arguments.of(
                         "chrome",
+                        "header",
                         "Никита"
                 ),
                 Arguments.of(
                         "firefox",
+                        "middle",
                         "Виктория"
                 )
         );

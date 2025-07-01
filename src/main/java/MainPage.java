@@ -4,8 +4,11 @@ import org.openqa.selenium.WebDriver;
 public class MainPage {
     private WebDriver driver;
 
+    //Кнопка подтверждения куки
     private By cookieConfirmLocator = By.id("rcc-confirm-button");
+    //Кнопка заказать в заголовке страницы
     private By orderButtonHeader = By.className("Button_Button__ra12g");
+    //Кнопка заказать в центре страницы
     private By orderButtonMiddle = By.className("Button_Middle__1CSJM");
 
     public MainPage(WebDriver driver) {

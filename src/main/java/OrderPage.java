@@ -69,6 +69,10 @@ public class OrderPage {
     private By orderButtonLocator = By.xpath(".//button[@class = \"Button_Button__ra12g Button_Middle__1CSJM\" and text()='Заказать']");
     //Заголовок окна подтверждения
     private By orderModalHeaderLocator = By.className("Order_ModalHeader__3FDaJ");
+    //Кнопка да
+    private By orderButtonYesLocator = By.xpath(".//button[@class = \"Button_Button__ra12g Button_Middle__1CSJM\" and text()='Да']");
+    //Кнопка Нет
+    private By orderButtonNoLocator = By.xpath(".//button[text()='Нет']");
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
@@ -78,6 +82,7 @@ public class OrderPage {
     public By getOrderHeader() {
         return orderHeader;
     }
+
     //Получение локатора заголовка окна подтверждения
     public By getOrderModalHeaderLocator() {
         return orderModalHeaderLocator;
@@ -142,28 +147,39 @@ public class OrderPage {
     }
 
     //Выбор черного цвета
-    public void selectBlackColor(){
+    public void selectBlackColor() {
         driver.findElement(selectBlackColorLocator).isDisplayed();
         driver.findElement(selectBlackColorLocator).click();
     }
 
     //Выбор серого цвета
-    public void selectGreyColor(){
+    public void selectGreyColor() {
         driver.findElement(selectGreyColorLocator).isDisplayed();
         driver.findElement(selectGreyColorLocator).click();
     }
 
     //Ввод комментария
-    public void inputComment(String comment){
+    public void inputComment(String comment) {
         driver.findElement(inputCommentLocator).isDisplayed();
         driver.findElement(inputCommentLocator).clear();
         driver.findElement(inputCommentLocator).sendKeys(comment);
     }
 
     //Нажатие на кнопку заказать
-    public void clickOrderButton(){
+    public void clickOrderButton() {
         driver.findElement(orderButtonLocator).isDisplayed();
         driver.findElement(orderButtonLocator).click();
     }
 
+    //Нажатие на кнопку да
+    public void clickOrderButtonYes() {
+        driver.findElement(orderButtonYesLocator).isDisplayed();
+        driver.findElement(orderButtonYesLocator).click();
+    }
+
+    //Нажатие на кнопку нет
+    public void clickOrderButtonNo() {
+        driver.findElement(orderButtonNoLocator).isDisplayed();
+        driver.findElement(orderButtonNoLocator).click();
+    }
 }

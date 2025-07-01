@@ -80,6 +80,11 @@ public class OrderTest {
         orderPage.clickOrderButton();
         //Дождались открытие окна подтверждения
         wait.until(ExpectedConditions.textToBePresentInElementLocated(orderPage.getOrderModalHeaderLocator(), "Хотите оформить заказ?"));
+        //Нажатие на кнопку Да
+        orderPage.clickOrderButtonYes();
+        //Дождались открытия окна подтверждения с номером заказа
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(orderPage.getOrderModalHeaderLocator(), "Заказ оформлен"));
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.className("Order_Text__2broi"), "Номер заказа:"));
     }
 
     @AfterEach
@@ -115,7 +120,7 @@ public class OrderTest {
                         "grey",
                         "Василиса",
                         "Премудрая",
-                        "Баг?",
+                        "Город",
                         "Комментарий"
                 ),
                 Arguments.of(

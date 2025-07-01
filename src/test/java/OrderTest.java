@@ -21,7 +21,7 @@ public class OrderTest {
 
     @ParameterizedTest
     @MethodSource("locatorProvider")
-    void orderHeader(String browser, String orderButton, String name) {
+    void orderHeader(String browser, String orderButton, String firstName, String lastName) {
 
         // создали драйвер для браузера Chrome или Firefox
         if ("chrome".equalsIgnoreCase(browser)) {
@@ -56,7 +56,8 @@ public class OrderTest {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.textToBe(orderPage.getOrderHeader(), "Для кого самокат"));
         //заполнили имя
-        orderPage.inputName(name);
+        orderPage.inputFirstName(firstName);
+        orderPage.inputLastName(lastName);
     }
 
     @AfterEach
@@ -71,12 +72,14 @@ public class OrderTest {
                 Arguments.of(
                         "chrome",
                         "header",
-                        "Никита"
+                        "Никита",
+                        "Холодулин"
                 ),
                 Arguments.of(
                         "firefox",
                         "middle",
-                        "Виктория"
+                        "Виктория",
+                        "Холодулина"
                 )
         );
     }

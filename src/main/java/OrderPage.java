@@ -5,10 +5,13 @@ import java.util.Random;
 
 public class OrderPage {
     private WebDriver driver;
+    private PhoneNumberGenerator phoneNumberGenerator = new PhoneNumberGenerator();
+    String phoneNumber = phoneNumberGenerator.generatePhoneNumber();
 
     Random rand = new Random();
     private int randomIndex = rand.nextInt(225);
     String xpathExpressionForSelectSearchRowLocator = String.format("//li[@class='select-search__row' and @data-index='%d']/button", randomIndex);
+
 
     private By orderHeader = By.className("Order_Header__BZXOb");
     private By inputFirstNameLocator = By.xpath(".//input[@placeholder='* Имя']");
@@ -16,6 +19,7 @@ public class OrderPage {
     private By inputAddressLocator = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
     private By selectSearchInputLocator = By.className("select-search__input");
     private By selectSearchRowLocator = By.xpath(xpathExpressionForSelectSearchRowLocator);
+    private By inputPhoneNumberLocator = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
 
 
 
@@ -49,5 +53,10 @@ public class OrderPage {
         driver.findElement(selectSearchInputLocator).click();
         driver.findElement(selectSearchRowLocator).isDisplayed();
         driver.findElement(selectSearchRowLocator).click();
+    }
+    public void inputPhoneNumber(){
+        driver.findElement(inputPhoneNumberLocator).isDisplayed();
+        driver.findElement(inputPhoneNumberLocator).click();
+        driver.findElement(inputPhoneNumberLocator).sendKeys(phoneNumber);
     }
 }

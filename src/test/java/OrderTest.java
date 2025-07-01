@@ -60,6 +60,7 @@ public class OrderTest {
         orderPage.inputLastName(lastName);
         orderPage.inputAddress(address);
         orderPage.inputRandomMetro();
+        orderPage.inputPhoneNumber();
     }
 
     @AfterEach

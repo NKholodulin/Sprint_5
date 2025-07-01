@@ -58,13 +58,15 @@ public class OrderPage {
     //Поле выбора срока аренды
     private By inputPeriodLocator = By.xpath(".//div[@class='Dropdown-placeholder' and text()='* Срок аренды']");
     //Выбор рандомного срока аренды
-    private By periodDropdownOption = By.xpath("//div[contains(@class, 'Dropdown-option') and normalize-space(text())='" + selectedPeriod + "']");
+    private By periodDropdownOption = By.xpath(".//div[contains(@class, 'Dropdown-option') and normalize-space(text())='" + selectedPeriod + "']");
     //Выбор черного цвета самоката
     private By selectBlackColorLocator = By.xpath(".//input[@id=\"black\"]");
     //Выбор серого цвета самоката
     private By selectGreyColorLocator = By.xpath(".//input[@id=\"grey\"]");
     //Поле ввода комментария
     private By inputCommentLocator = By.xpath(".//input[@placeholder='Комментарий для курьера']");
+    //Кнопка заказать
+    private By orderButtonLocator = By.xpath(".//button[@class = \"Button_Button__ra12g Button_Middle__1CSJM\" and text()='Заказать']");
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
@@ -149,6 +151,12 @@ public class OrderPage {
         driver.findElement(inputCommentLocator).isDisplayed();
         driver.findElement(inputCommentLocator).clear();
         driver.findElement(inputCommentLocator).sendKeys(comment);
+    }
+
+    //Нажатие на кнопку заказать
+    public void clickOrderButton(){
+        driver.findElement(orderButtonLocator).isDisplayed();
+        driver.findElement(orderButtonLocator).click();
     }
 
 }

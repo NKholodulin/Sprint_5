@@ -76,6 +76,8 @@ public class OrderTest {
 
         // заполнили комментарий
         orderPage.inputComment(comment);
+        //Нажали на кнопку заказать
+        orderPage.clickOrderButton();
     }
 
     @AfterEach

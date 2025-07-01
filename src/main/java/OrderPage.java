@@ -7,6 +7,7 @@ public class OrderPage {
     private By orderHeader = By.className("Order_Header__BZXOb");
     private By inputFirstNameLocator = By.xpath(".//input[@placeholder='* Имя']");
     private By inputLastNameLocator = By.xpath(".//input[@placeholder='* Фамилия']");
+    private By inputAddressLocator = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
 
 
     public OrderPage(WebDriver driver) {
@@ -17,15 +18,20 @@ public class OrderPage {
         return orderHeader;
     }
 
-    public void inputFirstName(String name){
+    public void inputFirstName(String firstName){
         driver.findElement(inputFirstNameLocator).isDisplayed();
         driver.findElement(inputFirstNameLocator).clear();
-        driver.findElement(inputFirstNameLocator).sendKeys(name);
+        driver.findElement(inputFirstNameLocator).sendKeys(firstName);
     }
-    public void inputLastName(String name){
+    public void inputLastName(String lastName){
         driver.findElement(inputLastNameLocator).isDisplayed();
         driver.findElement(inputLastNameLocator).clear();
-        driver.findElement(inputLastNameLocator).sendKeys(name);
+        driver.findElement(inputLastNameLocator).sendKeys(lastName);
     }
 
+    public void inputAddress(String address){
+        driver.findElement(inputAddressLocator).isDisplayed();
+        driver.findElement(inputAddressLocator).clear();
+        driver.findElement(inputAddressLocator).sendKeys(address);
+    }
 }

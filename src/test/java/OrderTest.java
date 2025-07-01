@@ -1,10 +1,7 @@
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -40,10 +37,7 @@ public class OrderTest {
         //подтвердили куки
         mainPage.cookieConfirm();
 
-        //нажали Заказать в хедере страницы
-        //mainPage.clickOrderButtonHeader();
-        mainPage.clickOrderButtonMiddle();
-        // создали драйвер для браузера Chrome или Firefox
+        // выбрали кнопку Заказать в хедере или центре страницы
         if ("middle".equalsIgnoreCase(orderButton)) {
             mainPage.clickOrderButtonHeader();
         } else if ("header".equalsIgnoreCase(orderButton)) {
@@ -55,7 +49,7 @@ public class OrderTest {
         //Дождались открытия формы
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.textToBe(orderPage.getOrderHeader(), "Для кого самокат"));
-        //заполнили имя, фамилию, адрес
+        //заполнили имя, фамилию, адрес, рандомную станцию метро, рандомный номер телефона
         orderPage.inputFirstName(firstName);
         orderPage.inputLastName(lastName);
         orderPage.inputAddress(address);
@@ -75,16 +69,30 @@ public class OrderTest {
                 Arguments.of(
                         "chrome",
                         "header",
-                        "Никита",
-                        "Холодулин",
-                        "Санчелеево"
+                        "Нед",
+                        "Старк",
+                        "Винтерфелл"
+                ),
+                Arguments.of(
+                        "chrome",
+                        "middle",
+                        "Иван",
+                        "Иванов",
+                        "Москва"
+                ),
+                Arguments.of(
+                        "firefox",
+                        "header",
+                        "Василиса",
+                        "Премудрая",
+                        "МКАД"
                 ),
                 Arguments.of(
                         "firefox",
                         "middle",
-                        "Виктория",
-                        "Холодулина",
-                        "Тольятти"
+                        "Арья",
+                        "Старк",
+                        "Браавос"
                 )
         );
     }

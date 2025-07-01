@@ -2,6 +2,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -59,8 +60,10 @@ public class OrderTest {
         orderPage.clickNextPageButton();
         //Дождались перехода формы
         wait.until(ExpectedConditions.textToBe(orderPage.getOrderHeader(), "Про аренду"));
-        //Заполнили дату доставки,
+        //Заполнили дату доставки, период доставки
         orderPage.inputDate();
+        orderPage.inputPeriod();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//div[@class =\"Dropdown-placeholder is-selected\"]")));
     }
 
     @AfterEach
@@ -91,7 +94,7 @@ public class OrderTest {
                         "header",
                         "Василиса",
                         "Премудрая",
-                        "Бага"
+                        "Баг?"
                 ),
                 Arguments.of(
                         "firefox",

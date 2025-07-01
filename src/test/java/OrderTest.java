@@ -59,6 +59,7 @@ public class OrderTest {
         orderPage.inputFirstName(firstName);
         orderPage.inputLastName(lastName);
         orderPage.inputAddress(address);
+        orderPage.inputRandomMetro();
     }
 
     @AfterEach

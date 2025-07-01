@@ -1,13 +1,22 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.Random;
+
 public class OrderPage {
     private WebDriver driver;
+
+    Random rand = new Random();
+    private int randomIndex = rand.nextInt(225);
+    String xpathExpressionForSelectSearchRowLocator = String.format("//li[@class='select-search__row' and @data-index='%d']/button", randomIndex);
 
     private By orderHeader = By.className("Order_Header__BZXOb");
     private By inputFirstNameLocator = By.xpath(".//input[@placeholder='* Имя']");
     private By inputLastNameLocator = By.xpath(".//input[@placeholder='* Фамилия']");
     private By inputAddressLocator = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
+    private By selectSearchInputLocator = By.className("select-search__input");
+    private By selectSearchRowLocator = By.xpath(xpathExpressionForSelectSearchRowLocator);
+
 
 
     public OrderPage(WebDriver driver) {
@@ -33,5 +42,12 @@ public class OrderPage {
         driver.findElement(inputAddressLocator).isDisplayed();
         driver.findElement(inputAddressLocator).clear();
         driver.findElement(inputAddressLocator).sendKeys(address);
+    }
+
+    public void inputRandomMetro(){
+        driver.findElement(selectSearchInputLocator).isDisplayed();
+        driver.findElement(selectSearchInputLocator).click();
+        driver.findElement(selectSearchRowLocator).isDisplayed();
+        driver.findElement(selectSearchRowLocator).click();
     }
 }

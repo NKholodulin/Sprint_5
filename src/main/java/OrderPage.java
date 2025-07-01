@@ -47,6 +47,8 @@ public class OrderPage {
     private By inputDatepickerLocator = By.className("react-datepicker__day--" + dayString);
     private By inputPeriodLocator = By.xpath(".//div[@class='Dropdown-placeholder' and text()='* Срок аренды']");
     private By periodDropdownOption = By.xpath("//div[contains(@class, 'Dropdown-option') and normalize-space(text())='" + selectedPeriod + "']");
+    private By selectBlackColorLocator = By.xpath(".//input[@id=\"black\"]");
+    private By selectGreyColorLocator = By.xpath(".//input[@id=\"grey\"]");
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
@@ -105,4 +107,15 @@ public class OrderPage {
         driver.findElement(periodDropdownOption).isDisplayed();
         driver.findElement(periodDropdownOption).click();
     }
+
+    public void selectBlackColor(){
+        driver.findElement(selectBlackColorLocator).isDisplayed();
+        driver.findElement(selectBlackColorLocator).click();
+    }
+
+    public void selectGreyColor(){
+        driver.findElement(selectGreyColorLocator).isDisplayed();
+        driver.findElement(selectGreyColorLocator).click();
+    }
+
 }

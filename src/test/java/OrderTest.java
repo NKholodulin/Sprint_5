@@ -19,7 +19,7 @@ public class OrderTest {
 
     @ParameterizedTest
     @MethodSource("locatorProvider")
-    void orderHeader(String browser, String orderButton, String firstName, String lastName, String address) {
+    void orderHeader(String browser, String orderButton, String color, String firstName, String lastName, String address) {
 
         // создали драйвер для браузера Chrome или Firefox
         if ("chrome".equalsIgnoreCase(browser)) {
@@ -64,6 +64,15 @@ public class OrderTest {
         orderPage.inputDate();
         orderPage.inputPeriod();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//div[@class =\"Dropdown-placeholder is-selected\"]")));
+
+        // выбрали цвет в зависимости от тестдаты
+        if ("grey".equalsIgnoreCase(color)) {
+            orderPage.selectBlackColor();
+        } else if ("black".equalsIgnoreCase(color)) {
+            orderPage.selectGreyColor();
+        } else {
+            throw new IllegalArgumentException("Неизвестный цвет: " + color);
+        }
     }
 
     @AfterEach
@@ -78,6 +87,7 @@ public class OrderTest {
                 Arguments.of(
                         "chrome",
                         "header",
+                        "black",
                         "Нед",
                         "Старк",
                         "Винтерфелл"
@@ -85,6 +95,7 @@ public class OrderTest {
                 Arguments.of(
                         "chrome",
                         "middle",
+                        "grey",
                         "Иван",
                         "Иванов",
                         "Москва"
@@ -92,6 +103,7 @@ public class OrderTest {
                 Arguments.of(
                         "firefox",
                         "header",
+                        "grey",
                         "Василиса",
                         "Премудрая",
                         "Баг?"
@@ -99,6 +111,7 @@ public class OrderTest {
                 Arguments.of(
                         "firefox",
                         "middle",
+                        "black",
                         "Арья",
                         "Старк",
                         "Браавос"

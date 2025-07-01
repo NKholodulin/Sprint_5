@@ -55,6 +55,12 @@ public class OrderTest {
         orderPage.inputAddress(address);
         orderPage.inputRandomMetro();
         orderPage.inputPhoneNumber();
+        //Нажимаем кнопку далее
+        orderPage.clickNextPageButton();
+        //Дождались перехода формы
+        wait.until(ExpectedConditions.textToBe(orderPage.getOrderHeader(), "Про аренду"));
+        //Заполнили дату доставки,
+        orderPage.inputDate();
     }
 
     @AfterEach
@@ -85,7 +91,7 @@ public class OrderTest {
                         "header",
                         "Василиса",
                         "Премудрая",
-                        "МКАД"
+                        "Бага"
                 ),
                 Arguments.of(
                         "firefox",

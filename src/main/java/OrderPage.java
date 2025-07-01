@@ -5,13 +5,19 @@ import java.util.Random;
 
 public class OrderPage {
     private WebDriver driver;
+
+    //генерация рандомного номера
     private PhoneNumberGenerator phoneNumberGenerator = new PhoneNumberGenerator();
     String phoneNumber = phoneNumberGenerator.generatePhoneNumber();
 
+    //генерация локатора рандомной станции
     Random rand = new Random();
     private int randomIndex = rand.nextInt(225);
     String xpathExpressionForSelectSearchRowLocator = String.format("//li[@class='select-search__row' and @data-index='%d']/button", randomIndex);
 
+    //генерация рандомной даты от 1 до 28 числа месяца
+    int day = rand.nextInt(28) + 1; // число от 1 до 28
+    String dayString = String.format("%03d", day); // форматируем с ведущими нулями
 
     private By orderHeader = By.className("Order_Header__BZXOb");
     private By inputFirstNameLocator = By.xpath(".//input[@placeholder='* Имя']");
@@ -20,8 +26,9 @@ public class OrderPage {
     private By selectSearchInputLocator = By.className("select-search__input");
     private By selectSearchRowLocator = By.xpath(xpathExpressionForSelectSearchRowLocator);
     private By inputPhoneNumberLocator = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
-
-
+    private By nextPageButtonLocator = By.className("Button_Middle__1CSJM");
+    private By inputDateLocator = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
+    private By inputDatepickerLocator = By.className("react-datepicker__day--" + dayString);
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
@@ -58,5 +65,17 @@ public class OrderPage {
         driver.findElement(inputPhoneNumberLocator).isDisplayed();
         driver.findElement(inputPhoneNumberLocator).click();
         driver.findElement(inputPhoneNumberLocator).sendKeys(phoneNumber);
+    }
+
+    public void clickNextPageButton(){
+        driver.findElement(nextPageButtonLocator).isDisplayed();
+        driver.findElement(nextPageButtonLocator).click();
+    }
+
+    public void inputDate(){
+        driver.findElement(inputDateLocator).isDisplayed();
+        driver.findElement(inputDateLocator).click();
+        driver.findElement(inputDatepickerLocator).isDisplayed();
+        driver.findElement(inputDatepickerLocator).click();
     }
 }

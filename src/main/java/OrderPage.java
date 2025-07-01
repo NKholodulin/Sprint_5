@@ -67,13 +67,20 @@ public class OrderPage {
     private By inputCommentLocator = By.xpath(".//input[@placeholder='Комментарий для курьера']");
     //Кнопка заказать
     private By orderButtonLocator = By.xpath(".//button[@class = \"Button_Button__ra12g Button_Middle__1CSJM\" and text()='Заказать']");
+    //Заголовок окна подтверждения
+    private By orderModalHeaderLocator = By.className("Order_ModalHeader__3FDaJ");
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
     }
 
+    //Получение локатора заголовка заказа
     public By getOrderHeader() {
         return orderHeader;
+    }
+    //Получение локатора заголовка окна подтверждения
+    public By getOrderModalHeaderLocator() {
+        return orderModalHeaderLocator;
     }
 
     //Ввод имени

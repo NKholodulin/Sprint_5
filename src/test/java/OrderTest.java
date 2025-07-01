@@ -78,6 +78,8 @@ public class OrderTest {
         orderPage.inputComment(comment);
         //Нажали на кнопку заказать
         orderPage.clickOrderButton();
+        //Дождались открытие окна подтверждения
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(orderPage.getOrderModalHeaderLocator(), "Хотите оформить заказ?"));
     }
 
     @AfterEach

@@ -49,6 +49,7 @@ public class OrderPage {
     private By periodDropdownOption = By.xpath("//div[contains(@class, 'Dropdown-option') and normalize-space(text())='" + selectedPeriod + "']");
     private By selectBlackColorLocator = By.xpath(".//input[@id=\"black\"]");
     private By selectGreyColorLocator = By.xpath(".//input[@id=\"grey\"]");
+    private By inputCommentLocator = By.xpath(".//input[@placeholder='Комментарий для курьера']");
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
@@ -116,6 +117,12 @@ public class OrderPage {
     public void selectGreyColor(){
         driver.findElement(selectGreyColorLocator).isDisplayed();
         driver.findElement(selectGreyColorLocator).click();
+    }
+
+    public void inputComment(String comment){
+        driver.findElement(inputCommentLocator).isDisplayed();
+        driver.findElement(inputCommentLocator).clear();
+        driver.findElement(inputCommentLocator).sendKeys(comment);
     }
 
 }

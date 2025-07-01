@@ -19,7 +19,7 @@ public class OrderTest {
 
     @ParameterizedTest
     @MethodSource("locatorProvider")
-    void orderHeader(String browser, String orderButton, String color, String firstName, String lastName, String address) {
+    void orderHeader(String browser, String orderButton, String color, String firstName, String lastName, String address, String comment) {
 
         // создали драйвер для браузера Chrome или Firefox
         if ("chrome".equalsIgnoreCase(browser)) {
@@ -73,6 +73,9 @@ public class OrderTest {
         } else {
             throw new IllegalArgumentException("Неизвестный цвет: " + color);
         }
+
+        // заполнили комментарий
+        orderPage.inputComment(comment);
     }
 
     @AfterEach
@@ -90,7 +93,8 @@ public class OrderTest {
                         "black",
                         "Нед",
                         "Старк",
-                        "Винтерфелл"
+                        "Винтерфелл",
+                        ""
                 ),
                 Arguments.of(
                         "chrome",
@@ -98,7 +102,8 @@ public class OrderTest {
                         "grey",
                         "Иван",
                         "Иванов",
-                        "Москва"
+                        "Москва",
+                        "Позвонить за час"
                 ),
                 Arguments.of(
                         "firefox",
@@ -106,7 +111,8 @@ public class OrderTest {
                         "grey",
                         "Василиса",
                         "Премудрая",
-                        "Баг?"
+                        "Баг?",
+                        "Комментарий"
                 ),
                 Arguments.of(
                         "firefox",
@@ -114,7 +120,8 @@ public class OrderTest {
                         "black",
                         "Арья",
                         "Старк",
-                        "Браавос"
+                        "Браавос",
+                        "1234567890-=!№;\"%:?*())))))))_+"
                 )
         );
     }

@@ -31,7 +31,7 @@ public class OrderTest {
         }
         // перешли на страницу тестового приложения
         driver.get("https://qa-scooter.praktikum-services.ru/");
-        // создали объект класса страницы с вопросами
+        // создали объекты классов страниц
         mainPage = new MainPage(driver);
         orderPage = new OrderPage(driver);
 

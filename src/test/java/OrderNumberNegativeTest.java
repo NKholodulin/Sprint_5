@@ -34,7 +34,7 @@ public class OrderNumberNegativeTest {
         mainPage.inputStatus("12345");
         //Дождались открытия страницы заказа
         wait.until(ExpectedConditions.urlToBe("https://qa-scooter.praktikum-services.ru/track?t=12345"));
-        
+
         assertTrue(driver.findElements(By.xpath(".//img[@alt='Not found']")).size() > 0, "Элемент с alt='Not found' отсутствует на странице");
 
 

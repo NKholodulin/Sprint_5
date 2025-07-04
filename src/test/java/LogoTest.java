@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -40,8 +39,8 @@ public class LogoTest {
         mainPage.clickLogoScooter();
 
         //Дождались открытия главной страницы
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.className("Home_Header__iJKdX"), "на пару дней"));
-        WebElement header = driver.findElement(By.className("Home_Header__iJKdX"));
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(mainPage.getHomeHeaderLocator(), "на пару дней"));
+        WebElement header = driver.findElement(mainPage.getHomeHeaderLocator());
         String text = header.getText();
         //Проверили что в хедере содержаться эти слова
         assertTrue(text.contains("Самокат") && text.contains("на пару дней"));

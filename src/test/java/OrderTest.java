@@ -2,7 +2,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -63,7 +62,7 @@ public class OrderTest {
         //Заполнили дату доставки, период доставки
         orderPage.inputDate();
         orderPage.inputPeriod();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(".//div[@class =\"Dropdown-placeholder is-selected\"]")));
+        wait.until(ExpectedConditions.elementToBeClickable(orderPage.getDropnownSelectedLocator()));
 
         // выбрали цвет в зависимости от тестдаты
         if ("grey".equalsIgnoreCase(color)) {
@@ -84,7 +83,7 @@ public class OrderTest {
         orderPage.clickOrderButtonYes();
         //Дождались открытия окна подтверждения с номером заказа
         wait.until(ExpectedConditions.textToBePresentInElementLocated(orderPage.getOrderModalHeaderLocator(), "Заказ оформлен"));
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.className("Order_Text__2broi"), "Номер заказа:"));
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(orderPage.getOrderNumberLocator(), "Номер заказа:"));
     }
 
     @AfterEach

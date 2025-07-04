@@ -21,6 +21,8 @@ public class MainPage {
     private By statusInput = By.xpath("//input[@placeholder='Введите номер заказа']");
     //Кнопка Go
     private By statusGo = By.xpath("//button[text()='Go!']");
+    //Заголовок домашней страницы
+    private By homeHeaderLocator = By.className("Home_Header__iJKdX");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -59,6 +61,11 @@ public class MainPage {
     //Метод для получения локатора ввода номера заказа
     public By getStatusInput() {
         return statusInput;
+    }
+
+    //Метод для получения локатора хедера домашней страницы
+    public By getHomeHeaderLocator() {
+        return homeHeaderLocator;
     }
 
     //Метод для нажатия на кнопку статус

@@ -70,10 +70,24 @@ public class OrderPage {
     private By orderButtonLocator = By.xpath(".//button[@class = \"Button_Button__ra12g Button_Middle__1CSJM\" and text()='Заказать']");
     //Заголовок окна подтверждения
     private By orderModalHeaderLocator = By.className("Order_ModalHeader__3FDaJ");
+    //Номер заказа
+    private By OrderNumberLocator = By.className("Order_Text__2broi");
     //Кнопка да
     private By orderButtonYesLocator = By.xpath(".//button[@class = \"Button_Button__ra12g Button_Middle__1CSJM\" and text()='Да']");
     //Кнопка Нет
     private By orderButtonNoLocator = By.xpath(".//button[text()='Нет']");
+    //Введите корректное имя
+    private By errorFirstNameLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Введите корректное имя']");
+    //Введите корректную фамилию
+    private By errorLastNameLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Введите корректную фамилию']");
+    //Введите корректный адрес
+    private By errorAddressLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb' and text() = 'Введите корректный адрес']");
+    //Выберите станцию
+    private By errorStationLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Выберите станцию']");
+    //Введите корректный номер
+    private By errorPhoneNumberLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Введите корректный номер']");
+    //Период выбран
+    private By dropnownSelectedLocator = By.cssSelector(".Dropdown-placeholder.is-selected");
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
@@ -182,5 +196,34 @@ public class OrderPage {
     public void clickOrderButtonNo() {
         driver.findElement(orderButtonNoLocator).isDisplayed();
         driver.findElement(orderButtonNoLocator).click();
+    }
+
+    //Получение локатора ошибки ввода имени
+    public By getErrorFirstNameLocator() {
+        return errorFirstNameLocator;
+    }
+    //Получение локатора ошибки ввода фамилии
+    public By getErrorLastNameLocator() {
+        return errorLastNameLocator;
+    }
+    //Получение локатора ошибки ввода адреса
+    public By getErrorAddressLocator(){
+        return errorAddressLocator;
+    }
+    //Получение локатора ошибки выбора станции
+    public By getErrorStationLocator() {
+        return errorStationLocator;
+    }
+    //Получение локатора ошибки ввода телефонного номера
+    public By getErrorPhoneNumberLocator() {
+        return errorPhoneNumberLocator;
+    }
+    //Получение локатора период выбран
+    public By getDropnownSelectedLocator() {
+        return dropnownSelectedLocator;
+    }
+    //Получение локатора номера заказа
+    public By getOrderNumberLocator() {
+        return OrderNumberLocator;
     }
 }

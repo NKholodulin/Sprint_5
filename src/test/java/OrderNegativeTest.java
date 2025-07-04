@@ -2,7 +2,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -50,19 +49,19 @@ public class OrderNegativeTest {
         orderPage.clickNextPageButton();
         //блок проверок
         //имя
-        WebElement errorMsg = driver.findElement(By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Введите корректное имя']"));
+        WebElement errorMsg = driver.findElement(orderPage.getErrorFirstNameLocator());
         assertEquals("Введите корректное имя", errorMsg.getText());
         //фамилия
-        errorMsg = driver.findElement(By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Введите корректную фамилию']"));
+        errorMsg = driver.findElement(orderPage.getErrorLastNameLocator());
         assertEquals("Введите корректную фамилию", errorMsg.getText());
         //адрес
-        errorMsg = driver.findElement(By.xpath("//div[@class='Input_ErrorMessage__3HvIb' and text() = 'Введите корректный адрес']"));
+        errorMsg = driver.findElement(orderPage.getErrorAddressLocator());
         assertEquals("Введите корректный адрес", errorMsg.getText());
-        //адрес
-        errorMsg = driver.findElement(By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Выберите станцию']"));
+        //станция
+        errorMsg = driver.findElement(orderPage.getErrorStationLocator());
         assertEquals("Выберите станцию", errorMsg.getText());
-        //адрес
-        errorMsg = driver.findElement(By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Введите корректный номер']"));
+        //номер
+        errorMsg = driver.findElement(orderPage.getErrorPhoneNumberLocator());
         assertEquals("Введите корректный номер", errorMsg.getText());
     }
 

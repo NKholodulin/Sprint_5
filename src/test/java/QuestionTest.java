@@ -8,7 +8,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,16 +20,16 @@ public class QuestionTest {
 
     @ParameterizedTest
     @MethodSource("locatorProvider")
-    void checkQuestion(String browser, By questionLocator, By accordionLocator, String expected, String expectedQuestion) throws InterruptedException {
-
-        // создали драйвер для браузера Chrome или Firefox
-        if ("chrome".equalsIgnoreCase(browser)) {
-            driver = new ChromeDriver();
-        } else if ("firefox".equalsIgnoreCase(browser)) {
-            driver = new FirefoxDriver();
-        } else {
-            throw new IllegalArgumentException("Неизвестный браузер: " + browser);
-        }
+    void checkQuestion(By questionLocator, By accordionLocator, String expected, String expectedQuestion) throws InterruptedException {
+        driver = new ChromeDriver();
+        // Оставил этот блок для себя
+//        if ("chrome".equalsIgnoreCase(browser)) {
+//            driver = new ChromeDriver();
+//        } else if ("firefox".equalsIgnoreCase(browser)) {
+//            driver = new FirefoxDriver();
+//        } else {
+//            throw new IllegalArgumentException("Неизвестный браузер: " + browser);
+//        }
         // перешли на страницу тестового приложения
         driver.get(MainPage.MAIN_URL);
         // создали объект класса страницы с вопросами
@@ -72,56 +71,48 @@ public class QuestionTest {
         return Stream.of(
                 // Реализуй тестовые данные
                 Arguments.of(
-                        "chrome",
                         By.id("accordion__heading-0"),
                         By.id("accordion__panel-0"),
                         "Сутки — 400 рублей. Оплата курьеру — наличными или картой.",
                         "Сколько это стоит? И как оплатить?"
                 ),
                 Arguments.of(
-                        "firefox",
                         By.id("accordion__heading-1"),
                         By.id("accordion__panel-1"),
                         "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.",
                         "Хочу сразу несколько самокатов! Так можно?"
                 ),
                 Arguments.of(
-                        "chrome",
                         By.id("accordion__heading-2"),
                         By.id("accordion__panel-2"),
                         "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.",
                         "Как рассчитывается время аренды?"
                 ),
                 Arguments.of(
-                        "firefox",
                         By.id("accordion__heading-3"),
                         By.id("accordion__panel-3"),
                         "Только начиная с завтрашнего дня. Но скоро станем расторопнее.",
                         "Можно ли заказать самокат прямо на сегодня?"
                 ),
                 Arguments.of(
-                        "chrome",
                         By.id("accordion__heading-4"),
                         By.id("accordion__panel-4"),
                         "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.",
                         "Можно ли продлить заказ или вернуть самокат раньше?"
                 ),
                 Arguments.of(
-                        "firefox",
                         By.id("accordion__heading-5"),
                         By.id("accordion__panel-5"),
                         "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.",
                         "Вы привозите зарядку вместе с самокатом?"
                 ),
                 Arguments.of(
-                        "chrome",
                         By.id("accordion__heading-6"),
                         By.id("accordion__panel-6"),
                         "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.",
                         "Можно ли отменить заказ?"
                 ),
                 Arguments.of(
-                        "firefox",
                         By.id("accordion__heading-7"),
                         By.id("accordion__panel-7"),
                         "Да, обязательно. Всем самокатов! И Москве, и Московской области.",

@@ -4,7 +4,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -18,16 +17,16 @@ public class OrderTest {
 
     @ParameterizedTest
     @MethodSource("locatorProvider")
-    void orderHeader(String browser, String orderButton, String color, String firstName, String lastName, String address, String comment) {
-
-        // создали драйвер для браузера Chrome или Firefox
-        if ("chrome".equalsIgnoreCase(browser)) {
-            driver = new ChromeDriver();
-        } else if ("firefox".equalsIgnoreCase(browser)) {
-            driver = new FirefoxDriver();
-        } else {
-            throw new IllegalArgumentException("Неизвестный браузер: " + browser);
-        }
+    void orderHeader(String orderButton, String color, String firstName, String lastName, String address, String comment) {
+        driver = new ChromeDriver();
+        //Оставил этот блок для себя
+//        if ("chrome".equalsIgnoreCase(browser)) {
+//            driver = new ChromeDriver();
+//        } else if ("firefox".equalsIgnoreCase(browser)) {
+//            driver = new FirefoxDriver();
+//        } else {
+//            throw new IllegalArgumentException("Неизвестный браузер: " + browser);
+//        }
         // перешли на страницу тестового приложения
         driver.get(MainPage.MAIN_URL);
         // создали объекты классов страниц
@@ -95,42 +94,6 @@ public class OrderTest {
     static Stream<Arguments> locatorProvider() {
         return Stream.of(
                 // Реализуй тестовые данные
-                Arguments.of(
-                        "chrome",
-                        "header",
-                        "black",
-                        "Нед",
-                        "Старк",
-                        "Винтерфелл",
-                        ""
-                ),
-                Arguments.of(
-                        "chrome",
-                        "middle",
-                        "grey",
-                        "Иван",
-                        "Иванов",
-                        "Москва",
-                        "Позвонить за час"
-                ),
-                Arguments.of(
-                        "firefox",
-                        "header",
-                        "grey",
-                        "Василиса",
-                        "Премудрая",
-                        "Город",
-                        "Комментарий"
-                ),
-                Arguments.of(
-                        "firefox",
-                        "middle",
-                        "black",
-                        "Арья",
-                        "Старк",
-                        "Браавос",
-                        "1234567890-=!№;\"%:?*())))))))_+"
-                )
-        );
+                Arguments.of("header", "black", "Нед", "Старк", "Винтерфелл", ""), Arguments.of("middle", "grey", "Иван", "Иванов", "Москва", "Позвонить за час"), Arguments.of("header", "grey", "Василиса", "Премудрая", "Город", "Комментарий"), Arguments.of("middle", "black", "Арья", "Старк", "Браавос", "1234567890-=!№;\"%:?*())))))))_+"));
     }
 }

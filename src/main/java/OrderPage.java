@@ -83,7 +83,7 @@ public class OrderPage {
     //Введите корректный адрес
     private By errorAddressLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb' and text() = 'Введите корректный адрес']");
     //Выберите станцию
-    private By errorStationLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Выберите станцию']");
+    private By errorStationLocator = By.className("Order_MetroError__1BtZb");
     //Введите корректный номер
     private By errorPhoneNumberLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Введите корректный номер']");
     //Период выбран

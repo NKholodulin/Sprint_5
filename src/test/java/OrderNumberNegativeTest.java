@@ -14,17 +14,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class OrderNumberNegativeTest {
     private WebDriver driver;
     MainPage mainPage;
+    OrderTrackPage orderTrackPage;
 
     @BeforeEach
     void setup() {
         driver = new ChromeDriver();
         // создали объекты классов страниц
         mainPage = new MainPage(driver);
+        orderTrackPage = new OrderTrackPage(driver);
     }
 
     @Test
     void testFormSubmissionWithActions() {
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(MainPage.MAIN_URL);
         //подтвердили куки
         mainPage.cookieConfirm();
         mainPage.clickStatus();
@@ -33,9 +35,9 @@ public class OrderNumberNegativeTest {
 
         mainPage.inputStatus("12345");
         //Дождались открытия страницы заказа
-        wait.until(ExpectedConditions.urlToBe("https://qa-scooter.praktikum-services.ru/track?t=12345"));
+        wait.until(ExpectedConditions.urlToBe(OrderTrackPage.NEGATIVE_TRACK_URL));
 
-        assertTrue(driver.findElements(By.xpath(".//img[@alt='Not found']")).size() > 0, "Элемент с alt='Not found' отсутствует на странице");
+        assertTrue(driver.findElements(orderTrackPage.getImgNotFoundLocator()).size() > 0, "Элемент с alt='Not found' отсутствует на странице");
 
 
     }

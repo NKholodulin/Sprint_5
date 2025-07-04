@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 public class MainPage {
     private WebDriver driver;
 
+    public static final String MAIN_URL = "https://qa-scooter.praktikum-services.ru/";
     //Кнопка подтверждения куки
     private By cookieConfirmLocator = By.id("rcc-confirm-button");
     //Кнопка заказать в заголовке страницы

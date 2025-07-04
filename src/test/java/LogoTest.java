@@ -29,7 +29,7 @@ public class LogoTest {
 
     @Test
     void testFormSubmissionWithActions() {
-        driver.get("https://qa-scooter.praktikum-services.ru/order");
+        driver.get(OrderPage.ORDER_URL);
         //подтвердили куки
         mainPage.cookieConfirm();
         //Дождались открытия формы

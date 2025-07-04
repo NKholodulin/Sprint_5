@@ -8,6 +8,7 @@ import java.util.List;
 public class OrderPage {
     private WebDriver driver;
 
+    public static final String ORDER_URL = "https://qa-scooter.praktikum-services.ru/order";
     //генерация рандомного номера
     private PhoneNumberGenerator phoneNumberGenerator = new PhoneNumberGenerator();
     String phoneNumber = phoneNumberGenerator.generatePhoneNumber();

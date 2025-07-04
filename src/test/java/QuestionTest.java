@@ -32,7 +32,7 @@ public class QuestionTest {
             throw new IllegalArgumentException("Неизвестный браузер: " + browser);
         }
         // перешли на страницу тестового приложения
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(MainPage.MAIN_URL);
         // создали объект класса страницы с вопросами
         mainPage = new MainPage(driver);
 

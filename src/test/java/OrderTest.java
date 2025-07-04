@@ -30,7 +30,7 @@ public class OrderTest {
             throw new IllegalArgumentException("Неизвестный браузер: " + browser);
         }
         // перешли на страницу тестового приложения
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(MainPage.MAIN_URL);
         // создали объекты классов страниц
         mainPage = new MainPage(driver);
         orderPage = new OrderPage(driver);

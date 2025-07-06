@@ -1,5 +1,7 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -10,6 +12,28 @@ public class MainPage {
     private WebDriverWait wait;
 
     public static final String MAIN_URL = "https://qa-scooter.praktikum-services.ru/";
+    // Константы с вопросами и ответами
+    public static final String[] QUESTIONS = {
+            "Сколько это стоит? И как оплатить?",
+            "Хочу сразу несколько самокатов! Так можно?",
+            "Как рассчитывается время аренды?",
+            "Можно ли заказать самокат прямо на сегодня?",
+            "Можно ли продлить заказ или вернуть самокат раньше?",
+            "Вы привозите зарядку вместе с самокатом?",
+            "Можно ли отменить заказ?",
+            "Я живу за МКАДом, привезёте?"
+    };
+
+    public static final String[] ANSWERS = {
+            "Сутки — 400 рублей. Оплата курьеру — наличными или картой.",
+            "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.",
+            "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.",
+            "Только начиная с завтрашнего дня. Но скоро станем расторопнее.",
+            "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.",
+            "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.",
+            "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.",
+            "Да, обязательно. Всем самокатов! И Москве, и Московской области."
+    };
     //Кнопка подтверждения куки
     private final By cookieConfirmLocator = By.id("rcc-confirm-button");
     //Кнопка заказать в заголовке страницы
@@ -90,4 +114,39 @@ public class MainPage {
     public void waitStatusInputClickable() {
         wait.until(ExpectedConditions.elementToBeClickable(statusInput));
     }
+
+    // Метод для получения вопроса по номеру
+    public WebElement getQuestion(int index) {
+        return driver.findElement(By.id("accordion__heading-" + index));
+    }
+
+    // Метод для получения панели ответа по номеру
+    public WebElement getAnswerPanel(int index) {
+        return driver.findElement(By.id("accordion__panel-" + index));
+    }
+    // Метод для клика по вопросу
+    public void clickQuestion(int index) {
+        getQuestion(index).click();
+    }
+
+    // Метод для получения текста вопроса
+    public String getQuestionText(int index) {
+        return getQuestion(index).getText();
+    }
+
+    // Метод для получения текста ответа
+    public String getAnswerText(int index) {
+        return getAnswerPanel(index).getText();
+    }
+
+    //
+    public void waitQuestionClickable(int index) {
+        wait.until(ExpectedConditions.elementToBeClickable(getQuestion(index)));
+    }
+    //Прокрутка к вопросу
+    public void scrollToQuestion(int index) throws InterruptedException {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", getQuestion(index));
+        Thread.sleep(500);
+    }
+
 }

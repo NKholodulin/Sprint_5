@@ -3,15 +3,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class QuestionTest {
@@ -20,7 +15,7 @@ public class QuestionTest {
 
     @ParameterizedTest
     @MethodSource("locatorProvider")
-    void checkQuestion(By questionLocator, By accordionLocator, String expected, String expectedQuestion) throws InterruptedException {
+    void checkQuestion(int index, String expected, String expectedQuestion) throws InterruptedException {
         driver = new ChromeDriver();
         // Оставил этот блок для себя
 //        if ("chrome".equalsIgnoreCase(browser)) {
@@ -38,22 +33,20 @@ public class QuestionTest {
         mainPage.cookieConfirm();
 
         //Ожидание пока элемент станет доступен
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.elementToBeClickable(questionLocator));
+        mainPage.waitQuestionClickable(index);
 
         //Прокрутка
-        WebElement element = driver.findElement(questionLocator);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        Thread.sleep(500);
-        String actualQuestion = driver.findElement(questionLocator).getText();
+        mainPage.scrollToQuestion(index);
+        // получили текст элемента вопроса
+        String actualQuestion = mainPage.getQuestionText(index);
         // раскрыли вопрос
-        driver.findElement(questionLocator).click();
+        mainPage.clickQuestion(index);
 
         //Ожидание пока элемент станет доступен
-        wait.until(ExpectedConditions.elementToBeClickable(questionLocator));
+        mainPage.waitQuestionClickable(index);
 
-        // получили текст элемента вопроса
-        String accordion = driver.findElement(accordionLocator).getText();
+        // получили текст элемента ответа
+        String accordion = mainPage.getAnswerText(index);
 
         // сделали проверку, что полученные значения совпадают с ответом
         Assertions.assertEquals(expected, accordion, "Полученное значение не совпадает с ответом");
@@ -68,57 +61,11 @@ public class QuestionTest {
     }
 
     static Stream<Arguments> locatorProvider() {
-        return Stream.of(
-                // Реализуй тестовые данные
-                Arguments.of(
-                        By.id("accordion__heading-0"),
-                        By.id("accordion__panel-0"),
-                        "Сутки — 400 рублей. Оплата курьеру — наличными или картой.",
-                        "Сколько это стоит? И как оплатить?"
-                ),
-                Arguments.of(
-                        By.id("accordion__heading-1"),
-                        By.id("accordion__panel-1"),
-                        "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.",
-                        "Хочу сразу несколько самокатов! Так можно?"
-                ),
-                Arguments.of(
-                        By.id("accordion__heading-2"),
-                        By.id("accordion__panel-2"),
-                        "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.",
-                        "Как рассчитывается время аренды?"
-                ),
-                Arguments.of(
-                        By.id("accordion__heading-3"),
-                        By.id("accordion__panel-3"),
-                        "Только начиная с завтрашнего дня. Но скоро станем расторопнее.",
-                        "Можно ли заказать самокат прямо на сегодня?"
-                ),
-                Arguments.of(
-                        By.id("accordion__heading-4"),
-                        By.id("accordion__panel-4"),
-                        "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.",
-                        "Можно ли продлить заказ или вернуть самокат раньше?"
-                ),
-                Arguments.of(
-                        By.id("accordion__heading-5"),
-                        By.id("accordion__panel-5"),
-                        "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.",
-                        "Вы привозите зарядку вместе с самокатом?"
-                ),
-                Arguments.of(
-                        By.id("accordion__heading-6"),
-                        By.id("accordion__panel-6"),
-                        "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.",
-                        "Можно ли отменить заказ?"
-                ),
-                Arguments.of(
-                        By.id("accordion__heading-7"),
-                        By.id("accordion__panel-7"),
-                        "Да, обязательно. Всем самокатов! И Москве, и Московской области.",
-                        "Я живу за МКАДом, привезёте?"
-                )
-
-        );
+        return IntStream.range(0, MainPage.QUESTIONS.length)
+                .mapToObj(i -> Arguments.of(
+                        i,
+                        MainPage.ANSWERS[i],
+                        MainPage.QUESTIONS[i]
+                ));
     }
 }

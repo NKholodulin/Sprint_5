@@ -1,12 +1,16 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.Random;
 import java.util.Arrays;
 import java.util.List;
 
 public class OrderPage {
     private WebDriver driver;
+    private WebDriverWait wait;
 
     public static final String ORDER_URL = "https://qa-scooter.praktikum-services.ru/order";
     //генерация рандомного номера
@@ -15,7 +19,7 @@ public class OrderPage {
 
     //генерация локатора рандомной станции
     Random rand = new Random();
-    private int randomIndex = rand.nextInt(225);
+    private final int randomIndex = rand.nextInt(225);
     String xpathExpressionForSelectSearchRowLocator = String.format("//li[@class='select-search__row' and @data-index='%d']/button", randomIndex);
 
     //генерация рандомной даты от 1 до 28 числа месяца
@@ -37,70 +41,61 @@ public class OrderPage {
 
     //Создаем локаторы
     //Заголовок заказа
-    private By orderHeader = By.className("Order_Header__BZXOb");
+    private final By orderHeader = By.className("Order_Header__BZXOb");
     //Поле ввода имени
-    private By inputFirstNameLocator = By.xpath(".//input[@placeholder='* Имя']");
+    private final By inputFirstNameLocator = By.xpath(".//input[@placeholder='* Имя']");
     //Поле ввода фамилии
-    private By inputLastNameLocator = By.xpath(".//input[@placeholder='* Фамилия']");
+    private final By inputLastNameLocator = By.xpath(".//input[@placeholder='* Фамилия']");
     //Поле ввода адреса
-    private By inputAddressLocator = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
+    private final By inputAddressLocator = By.xpath(".//input[@placeholder='* Адрес: куда привезти заказ']");
     //Поле выбора станции метро
-    private By selectSearchInputLocator = By.className("select-search__input");
+    private final By selectSearchInputLocator = By.className("select-search__input");
     //Рандомная станция из списка
-    private By selectSearchRowLocator = By.xpath(xpathExpressionForSelectSearchRowLocator);
+    private final By selectSearchRowLocator = By.xpath(xpathExpressionForSelectSearchRowLocator);
     //Поле ввода телефона
-    private By inputPhoneNumberLocator = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
+    private final By inputPhoneNumberLocator = By.xpath(".//input[@placeholder='* Телефон: на него позвонит курьер']");
     //Кнопка далее
-    private By nextPageButtonLocator = By.className("Button_Middle__1CSJM");
+    private final By nextPageButtonLocator = By.className("Button_Middle__1CSJM");
     //Поле выбора даты
-    private By inputDateLocator = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
+    private final By inputDateLocator = By.xpath(".//input[@placeholder='* Когда привезти самокат']");
     //Выбор рандомного числа от 1 до 28 текущего месяца
-    private By inputDatepickerLocator = By.className("react-datepicker__day--" + dayString);
+    private final By inputDatepickerLocator = By.className("react-datepicker__day--" + dayString);
     //Поле выбора срока аренды
-    private By inputPeriodLocator = By.xpath(".//div[@class='Dropdown-placeholder' and text()='* Срок аренды']");
+    private final By inputPeriodLocator = By.xpath(".//div[@class='Dropdown-placeholder' and text()='* Срок аренды']");
     //Выбор рандомного срока аренды
-    private By periodDropdownOption = By.xpath(".//div[contains(@class, 'Dropdown-option') and normalize-space(text())='" + selectedPeriod + "']");
+    private final By periodDropdownOption = By.xpath(".//div[contains(@class, 'Dropdown-option') and normalize-space(text())='" + selectedPeriod + "']");
     //Выбор черного цвета самоката
-    private By selectBlackColorLocator = By.xpath(".//input[@id=\"black\"]");
+    private final By selectBlackColorLocator = By.xpath(".//input[@id=\"black\"]");
     //Выбор серого цвета самоката
-    private By selectGreyColorLocator = By.xpath(".//input[@id=\"grey\"]");
+    private final By selectGreyColorLocator = By.xpath(".//input[@id=\"grey\"]");
     //Поле ввода комментария
-    private By inputCommentLocator = By.xpath(".//input[@placeholder='Комментарий для курьера']");
+    private final By inputCommentLocator = By.xpath(".//input[@placeholder='Комментарий для курьера']");
     //Кнопка заказать
-    private By orderButtonLocator = By.xpath(".//button[@class = \"Button_Button__ra12g Button_Middle__1CSJM\" and text()='Заказать']");
+    private final By orderButtonLocator = By.xpath(".//button[@class = \"Button_Button__ra12g Button_Middle__1CSJM\" and text()='Заказать']");
     //Заголовок окна подтверждения
-    private By orderModalHeaderLocator = By.className("Order_ModalHeader__3FDaJ");
+    private final By orderModalHeaderLocator = By.className("Order_ModalHeader__3FDaJ");
     //Номер заказа
-    private By OrderNumberLocator = By.className("Order_Text__2broi");
+    private final By orderNumberLocator = By.className("Order_Text__2broi");
     //Кнопка да
-    private By orderButtonYesLocator = By.xpath(".//button[@class = \"Button_Button__ra12g Button_Middle__1CSJM\" and text()='Да']");
+    private final By orderButtonYesLocator = By.xpath(".//button[@class = \"Button_Button__ra12g Button_Middle__1CSJM\" and text()='Да']");
     //Кнопка Нет
-    private By orderButtonNoLocator = By.xpath(".//button[text()='Нет']");
+    private final By orderButtonNoLocator = By.xpath(".//button[text()='Нет']");
     //Введите корректное имя
-    private By errorFirstNameLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Введите корректное имя']");
+    private final By errorFirstNameLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Введите корректное имя']");
     //Введите корректную фамилию
-    private By errorLastNameLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Введите корректную фамилию']");
+    private final By errorLastNameLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Введите корректную фамилию']");
     //Введите корректный адрес
-    private By errorAddressLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb' and text() = 'Введите корректный адрес']");
+    private final By errorAddressLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb' and text() = 'Введите корректный адрес']");
     //Выберите станцию
-    private By errorStationLocator = By.className("Order_MetroError__1BtZb");
+    private final By errorStationLocator = By.className("Order_MetroError__1BtZb");
     //Введите корректный номер
-    private By errorPhoneNumberLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Введите корректный номер']");
+    private final By errorPhoneNumberLocator = By.xpath("//div[@class='Input_ErrorMessage__3HvIb Input_Visible___syz6' and text() = 'Введите корректный номер']");
     //Период выбран
-    private By dropnownSelectedLocator = By.cssSelector(".Dropdown-placeholder.is-selected");
+    private final By dropnownSelectedLocator = By.cssSelector(".Dropdown-placeholder.is-selected");
 
     public OrderPage(WebDriver driver) {
         this.driver = driver;
-    }
-
-    //Получение локатора заголовка заказа
-    public By getOrderHeader() {
-        return orderHeader;
-    }
-
-    //Получение локатора заголовка окна подтверждения
-    public By getOrderModalHeaderLocator() {
-        return orderModalHeaderLocator;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     //Ввод имени
@@ -218,12 +213,36 @@ public class OrderPage {
     public By getErrorPhoneNumberLocator() {
         return errorPhoneNumberLocator;
     }
-    //Получение локатора период выбран
-    public By getDropnownSelectedLocator() {
-        return dropnownSelectedLocator;
+    // Метод для ожидания текста в элементе orderHeader
+    public void waitForTextToBeOrderHeader(String expectedText) {
+        wait.until(ExpectedConditions.textToBe(orderHeader, expectedText));
     }
-    //Получение локатора номера заказа
-    public By getOrderNumberLocator() {
-        return OrderNumberLocator;
+    //Метод для ожидания период выбран
+    public void waitDropnownSelected() {
+        wait.until(ExpectedConditions.elementToBeClickable(dropnownSelectedLocator));
+    }
+    //Метод для ожидания текста в orderModalHeader
+    public void waitForTextToBeModalHeader(String expectedText) {
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(orderModalHeaderLocator, expectedText));
+    }
+    //Метод для ожидания текста в orderNumber
+    public void waitForTextToBeOrderNumber(String expectedText) {
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(orderNumberLocator, expectedText));
+    }
+    // Методы для ожидания ошибок
+    public void waitErrorFirstName() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(errorFirstNameLocator));
+    }
+    public void waitErrorLastName() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(errorLastNameLocator));
+    }
+    public void waitErrorAddress() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(errorAddressLocator));
+    }
+    public void waitErrorStation() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(errorStationLocator));
+    }
+    public void waitErrorPhoneNumber() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(errorPhoneNumberLocator));
     }
 }

@@ -4,10 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -29,24 +25,21 @@ public class OrderNegativeTest {
         // выбрали кнопку Заказать в хедере
         mainPage.clickOrderButtonHeader();
         //Дождались открытия формы
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.textToBe(orderPage.getOrderHeader(), "Для кого самокат"));
+        orderPage.waitForTextToBeOrderHeader("Для кого самокат");
         orderPage.clickNextPageButton();
     }
 
     @Test
     void orderErrorFirstName() {
         //имя
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.presenceOfElementLocated(orderPage.getErrorFirstNameLocator()));
+        orderPage.waitErrorFirstName();
         WebElement errorMsg = driver.findElement(orderPage.getErrorFirstNameLocator());
         assertEquals("Введите корректное имя", errorMsg.getText());
     }
 
     @Test
     void orderErrorLastName() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.presenceOfElementLocated(orderPage.getErrorLastNameLocator()));
+        orderPage.waitErrorLastName();
         //фамилия
         WebElement errorMsg = driver.findElement(orderPage.getErrorLastNameLocator());
         assertEquals("Введите корректную фамилию", errorMsg.getText());
@@ -54,8 +47,7 @@ public class OrderNegativeTest {
 
     @Test
     void orderErrorAddress() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.presenceOfElementLocated(orderPage.getErrorAddressLocator()));
+        orderPage.waitErrorAddress();
         //адрес
         WebElement errorMsg = driver.findElement(orderPage.getErrorAddressLocator());
         assertEquals("Введите корректный адрес", errorMsg.getText());
@@ -63,8 +55,7 @@ public class OrderNegativeTest {
 
     @Test
     void orderErrorStation() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.presenceOfElementLocated(orderPage.getErrorStationLocator()));
+        orderPage.waitErrorStation();
         //станция
         WebElement errorMsg = driver.findElement(orderPage.getErrorStationLocator());
         assertEquals("Выберите станцию", errorMsg.getText());
@@ -72,8 +63,7 @@ public class OrderNegativeTest {
 
     @Test
     void orderErrorPhoneNumber() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.presenceOfElementLocated(orderPage.getErrorPhoneNumberLocator()));
+        orderPage.waitErrorPhoneNumber();
         //номер
         WebElement errorMsg = driver.findElement(orderPage.getErrorPhoneNumberLocator());
         assertEquals("Введите корректный номер", errorMsg.getText());

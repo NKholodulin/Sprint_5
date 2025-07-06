@@ -4,10 +4,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.stream.Stream;
 
 public class OrderTest {
@@ -46,8 +43,7 @@ public class OrderTest {
         }
 
         //Дождались открытия формы
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.textToBe(orderPage.getOrderHeader(), "Для кого самокат"));
+        orderPage.waitForTextToBeOrderHeader("Для кого самокат");
         //заполнили имя, фамилию, адрес, рандомную станцию метро, рандомный номер телефона
         orderPage.inputFirstName(firstName);
         orderPage.inputLastName(lastName);
@@ -57,11 +53,11 @@ public class OrderTest {
         //Нажимаем кнопку далее
         orderPage.clickNextPageButton();
         //Дождались перехода формы
-        wait.until(ExpectedConditions.textToBe(orderPage.getOrderHeader(), "Про аренду"));
+        orderPage.waitForTextToBeOrderHeader("Про аренду");
         //Заполнили дату доставки, период доставки
         orderPage.inputDate();
         orderPage.inputPeriod();
-        wait.until(ExpectedConditions.elementToBeClickable(orderPage.getDropnownSelectedLocator()));
+        orderPage.waitDropnownSelected();
 
         // выбрали цвет в зависимости от тестдаты
         if ("grey".equalsIgnoreCase(color)) {
@@ -77,12 +73,12 @@ public class OrderTest {
         //Нажали на кнопку заказать
         orderPage.clickOrderButton();
         //Дождались открытие окна подтверждения
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(orderPage.getOrderModalHeaderLocator(), "Хотите оформить заказ?"));
+        orderPage.waitForTextToBeModalHeader("Хотите оформить заказ?");
         //Нажатие на кнопку Да
         orderPage.clickOrderButtonYes();
         //Дождались открытия окна подтверждения с номером заказа
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(orderPage.getOrderModalHeaderLocator(), "Заказ оформлен"));
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(orderPage.getOrderNumberLocator(), "Номер заказа:"));
+        orderPage.waitForTextToBeModalHeader("Заказ оформлен");
+        orderPage.waitForTextToBeOrderNumber("Номер заказа:");
     }
 
     @AfterEach

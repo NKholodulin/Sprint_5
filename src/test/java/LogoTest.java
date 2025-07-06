@@ -4,11 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Set;
-import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,6 +14,7 @@ public class LogoTest {
     private WebDriver driver;
     MainPage mainPage;
     OrderPage orderPage;
+    YandexPage yandexPage;
 
     @BeforeEach
     void setup() {
@@ -24,6 +22,7 @@ public class LogoTest {
         // создали объекты классов страниц
         mainPage = new MainPage(driver);
         orderPage = new OrderPage(driver);
+        yandexPage = new YandexPage(driver);
     }
 
     @Test
@@ -32,14 +31,13 @@ public class LogoTest {
         //подтвердили куки
         mainPage.cookieConfirm();
         //Дождались открытия формы
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.textToBe(orderPage.getOrderHeader(), "Для кого самокат"));
+        orderPage.waitForTextToBeOrderHeader("Для кого самокат");
 
         //Нажали на лого самоката
         mainPage.clickLogoScooter();
 
         //Дождались открытия главной страницы
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(mainPage.getHomeHeaderLocator(), "на пару дней"));
+        mainPage.waitTextToBePresentInElementLocatedHomeHeader();
         WebElement header = driver.findElement(mainPage.getHomeHeaderLocator());
         String text = header.getText();
         //Проверили что в хедере содержаться эти слова
@@ -62,10 +60,10 @@ public class LogoTest {
 
         // Переключаемся на новое окно
         driver.switchTo().window(newWindowHandle);
-        wait.until(ExpectedConditions.urlContains("https://ya.ru/"));
+        yandexPage.waitYaUrlContains();
         // Проверка URL
         String currentUrl = driver.getCurrentUrl();
-        assertEquals("https://ya.ru/", currentUrl);
+        assertEquals(YandexPage.YA_URL, currentUrl);
     }
 
     @AfterEach

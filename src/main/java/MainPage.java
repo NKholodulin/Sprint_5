@@ -1,31 +1,37 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class MainPage {
     private WebDriver driver;
+    private WebDriverWait wait;
 
     public static final String MAIN_URL = "https://qa-scooter.praktikum-services.ru/";
     //Кнопка подтверждения куки
-    private By cookieConfirmLocator = By.id("rcc-confirm-button");
+    private final By cookieConfirmLocator = By.id("rcc-confirm-button");
     //Кнопка заказать в заголовке страницы
-    private By orderButtonHeader = By.className("Button_Button__ra12g");
+    private final By orderButtonHeader = By.className("Button_Button__ra12g");
     //Кнопка заказать в центре страницы
-    private By orderButtonMiddle = By.className("Button_Middle__1CSJM");
+    private final By orderButtonMiddle = By.className("Button_Middle__1CSJM");
     //Логотип самоката
-    private By logoScooter = By.className("Header_LogoScooter__3lsAR");
+    private final By logoScooter = By.className("Header_LogoScooter__3lsAR");
     //Логотип яндекса
-    private By logoYandex = By.className("Header_LogoYandex__3TSOI");
+    private final By logoYandex = By.className("Header_LogoYandex__3TSOI");
     //Кнопка статус заказа
-    private By statusButton = By.className("Header_Link__1TAG7");
+    private final By statusButton = By.className("Header_Link__1TAG7");
     //Поле ввода номера заказа
-    private By statusInput = By.xpath("//input[@placeholder='Введите номер заказа']");
+    private final By statusInput = By.xpath("//input[@placeholder='Введите номер заказа']");
     //Кнопка Go
-    private By statusGo = By.xpath("//button[text()='Go!']");
+    private final By statusGo = By.xpath("//button[text()='Go!']");
     //Заголовок домашней страницы
-    private By homeHeaderLocator = By.className("Home_Header__iJKdX");
+    private final By homeHeaderLocator = By.className("Home_Header__iJKdX");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }
 
     //метод для нажатия на кнопку принятия куки
@@ -58,11 +64,6 @@ public class MainPage {
         driver.findElement(logoYandex).click();
     }
 
-    //Метод для получения локатора ввода номера заказа
-    public By getStatusInput() {
-        return statusInput;
-    }
-
     //Метод для получения локатора хедера домашней страницы
     public By getHomeHeaderLocator() {
         return homeHeaderLocator;
@@ -81,4 +82,12 @@ public class MainPage {
         driver.findElement(statusGo).click();
     }
 
+    // Метод для ожидания текста в элементе
+    public void waitTextToBePresentInElementLocatedHomeHeader() {
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(homeHeaderLocator, "на пару дней"));
+    }
+    //Метод для ожидания статуса
+    public void waitStatusInputClickable() {
+        wait.until(ExpectedConditions.elementToBeClickable(statusInput));
+    }
 }

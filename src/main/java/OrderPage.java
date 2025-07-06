@@ -229,6 +229,12 @@ public class OrderPage {
     public void waitForTextToBeOrderNumber(String expectedText) {
         wait.until(ExpectedConditions.textToBePresentInElementLocated(orderNumberLocator, expectedText));
     }
+    //orderNumberLocator
+    public String getTextOrderNumber() {
+       driver.findElement(orderNumberLocator).isDisplayed();
+       return driver.findElement(orderNumberLocator).getText();
+    }
+
     // Методы для ожидания ошибок
     public void waitErrorFirstName() {
         wait.until(ExpectedConditions.presenceOfElementLocated(errorFirstNameLocator));

@@ -1,10 +1,13 @@
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.util.stream.Stream;
 
 public class OrderTest {
@@ -79,6 +82,20 @@ public class OrderTest {
         //Дождались открытия окна подтверждения с номером заказа
         orderPage.waitForTextToBeModalHeader("Заказ оформлен");
         orderPage.waitForTextToBeOrderNumber("Номер заказа:");
+        //Достаем сообщение с номером заказа
+        String orderText = orderPage.getTextOrderNumber();
+        System.out.println(orderText);
+        Pattern pattern = Pattern.compile("Номер заказа:\\s*(\\d+)");
+        Matcher matcher = pattern.matcher(orderText);
+        // Номер заказа найден
+        Assertions.assertTrue(matcher.find(), "Номер заказа не найден в тексте: " + orderText);
+        //Получаем номер заказ
+        String orderNumber = matcher.group(1);
+        // Можно дополнительно проверить, что номер не пустой и состоит из цифр
+        Assertions.assertFalse(orderNumber.isEmpty(), "Номер заказа пустой");
+        Assertions.assertTrue(orderNumber.matches("\\d+"), "Номер заказа содержит недопустимые символы");
+        // Вывод номера заказа
+        System.out.println("Извлечённый номер заказа: " + orderNumber);
     }
 
     @AfterEach

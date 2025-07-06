@@ -8,8 +8,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class MainPage {
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
 
     public static final String MAIN_URL = "https://qa-scooter.praktikum-services.ru/";
     // Константы с вопросами и ответами
@@ -88,11 +88,6 @@ public class MainPage {
         driver.findElement(logoYandex).click();
     }
 
-    //Метод для получения локатора хедера домашней страницы
-    public By getHomeHeaderLocator() {
-        return homeHeaderLocator;
-    }
-
     //Метод для нажатия на кнопку статус
     public void clickStatus(){
         driver.findElement(statusButton).isDisplayed();
@@ -147,6 +142,12 @@ public class MainPage {
     public void scrollToQuestion(int index) throws InterruptedException {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", getQuestion(index));
         Thread.sleep(500);
+    }
+
+    //Метод для получения текста
+    public String getTextHomeHeader(){
+        driver.findElement(homeHeaderLocator);
+        return driver.findElement(homeHeaderLocator).getText();
     }
 
 }

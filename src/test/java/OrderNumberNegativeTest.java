@@ -26,14 +26,10 @@ public class OrderNumberNegativeTest {
         mainPage.cookieConfirm();
         mainPage.clickStatus();
         mainPage.waitStatusInputClickable();
-
         mainPage.inputStatus("12345");
         //Дождались открытия страницы заказа
         orderTrackPage.waitNegativeTrackUrl();
-
-        assertTrue(driver.findElements(orderTrackPage.getImgNotFoundLocator()).size() > 0, "Элемент с alt='Not found' отсутствует на странице");
-
-
+        assertTrue(orderTrackPage.getImgNotFound() > 0, "Элемент с alt='Not found' отсутствует на странице");
     }
 
     @AfterEach

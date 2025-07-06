@@ -5,8 +5,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class YandexPage {
-        private WebDriver driver;
-        private WebDriverWait wait;
+        private final WebDriver driver;
+        private final WebDriverWait wait;
 
         public static final String YA_URL = "https://ya.ru/";
 

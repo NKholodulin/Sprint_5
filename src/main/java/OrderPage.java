@@ -9,12 +9,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class OrderPage {
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
 
     public static final String ORDER_URL = "https://qa-scooter.praktikum-services.ru/order";
     //генерация рандомного номера
-    private PhoneNumberGenerator phoneNumberGenerator = new PhoneNumberGenerator();
+    private final PhoneNumberGenerator phoneNumberGenerator = new PhoneNumberGenerator();
     String phoneNumber = phoneNumberGenerator.generatePhoneNumber();
 
     //генерация локатора рандомной станции
@@ -193,26 +193,6 @@ public class OrderPage {
         driver.findElement(orderButtonNoLocator).click();
     }
 
-    //Получение локатора ошибки ввода имени
-    public By getErrorFirstNameLocator() {
-        return errorFirstNameLocator;
-    }
-    //Получение локатора ошибки ввода фамилии
-    public By getErrorLastNameLocator() {
-        return errorLastNameLocator;
-    }
-    //Получение локатора ошибки ввода адреса
-    public By getErrorAddressLocator(){
-        return errorAddressLocator;
-    }
-    //Получение локатора ошибки выбора станции
-    public By getErrorStationLocator() {
-        return errorStationLocator;
-    }
-    //Получение локатора ошибки ввода телефонного номера
-    public By getErrorPhoneNumberLocator() {
-        return errorPhoneNumberLocator;
-    }
     // Метод для ожидания текста в элементе orderHeader
     public void waitForTextToBeOrderHeader(String expectedText) {
         wait.until(ExpectedConditions.textToBe(orderHeader, expectedText));
@@ -250,5 +230,26 @@ public class OrderPage {
     }
     public void waitErrorPhoneNumber() {
         wait.until(ExpectedConditions.presenceOfElementLocated(errorPhoneNumberLocator));
+    }
+    //Методы для получения текста ошибок
+    public String getTextErrorFirstName() {
+        driver.findElement(errorFirstNameLocator).isDisplayed();
+        return driver.findElement(errorFirstNameLocator).getText();
+    }
+    public String getTextErrorLastName() {
+        driver.findElement(errorLastNameLocator).isDisplayed();
+        return driver.findElement(errorLastNameLocator).getText();
+    }
+    public String getTextErrorAddress() {
+        driver.findElement(errorAddressLocator).isDisplayed();
+        return driver.findElement(errorAddressLocator).getText();
+    }
+    public String getTextErrorStation() {
+        driver.findElement(errorStationLocator).isDisplayed();
+        return driver.findElement(errorStationLocator).getText();
+    }
+    public String getTextErrorPhoneNumber() {
+        driver.findElement(errorPhoneNumberLocator).isDisplayed();
+        return driver.findElement(errorPhoneNumberLocator).getText();
     }
 }

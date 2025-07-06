@@ -2,7 +2,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,40 +32,40 @@ public class OrderNegativeTest {
     void orderErrorFirstName() {
         //имя
         orderPage.waitErrorFirstName();
-        WebElement errorMsg = driver.findElement(orderPage.getErrorFirstNameLocator());
-        assertEquals("Введите корректное имя", errorMsg.getText());
+        String errorMsg = orderPage.getTextErrorFirstName();
+        assertEquals("Введите корректное имя", errorMsg);
     }
 
     @Test
     void orderErrorLastName() {
         orderPage.waitErrorLastName();
         //фамилия
-        WebElement errorMsg = driver.findElement(orderPage.getErrorLastNameLocator());
-        assertEquals("Введите корректную фамилию", errorMsg.getText());
+        String errorMsg = orderPage.getTextErrorLastName();
+        assertEquals("Введите корректную фамилию", errorMsg);
     }
 
     @Test
     void orderErrorAddress() {
         orderPage.waitErrorAddress();
         //адрес
-        WebElement errorMsg = driver.findElement(orderPage.getErrorAddressLocator());
-        assertEquals("Введите корректный адрес", errorMsg.getText());
+        String errorMsg = orderPage.getTextErrorAddress();
+        assertEquals("Введите корректный адрес", errorMsg);
     }
 
     @Test
     void orderErrorStation() {
         orderPage.waitErrorStation();
         //станция
-        WebElement errorMsg = driver.findElement(orderPage.getErrorStationLocator());
-        assertEquals("Выберите станцию", errorMsg.getText());
+        String errorMsg = orderPage.getTextErrorStation();
+        assertEquals("Выберите станцию", errorMsg);
     }
 
     @Test
     void orderErrorPhoneNumber() {
         orderPage.waitErrorPhoneNumber();
         //номер
-        WebElement errorMsg = driver.findElement(orderPage.getErrorPhoneNumberLocator());
-        assertEquals("Введите корректный номер", errorMsg.getText());
+        String errorMsg = orderPage.getTextErrorPhoneNumber();
+        assertEquals("Введите корректный номер", errorMsg);
     }
 
     @AfterEach
